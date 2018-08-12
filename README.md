@@ -1,2 +1,2 @@
 # assignment_flutur
-A project test for Flutur.org
+A test project for Flutur.org
