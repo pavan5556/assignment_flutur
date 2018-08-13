@@ -1,5 +1,6 @@
 package com.sailstudios.apps.fluturassignment;
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Integer> imageList;
     private int random1, random2, random3;
 
+    public static final int SCROLL_OFFSET = 80;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,8 +36,8 @@ public class MainActivity extends AppCompatActivity {
         resetButton.setEnabled(false);
 
         imageList = new ArrayList<>();
-        imageList.add(R.drawable.einstein);
         imageList.add(R.drawable.edison);
+        imageList.add(R.drawable.einstein);
         imageList.add(R.drawable.hawking);
         imageList.add(R.drawable.newton);
         imageList.add(R.drawable.tesla);
@@ -58,6 +61,15 @@ public class MainActivity extends AppCompatActivity {
         recyclerView2.setAdapter(adapter);
         recyclerView3.setAdapter(adapter);
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                recyclerView1.smoothScrollBy(0, 150);
+                recyclerView2.smoothScrollBy(0, 150);
+                recyclerView3.smoothScrollBy(0, 150);
+            }
+        }, 200);
+
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -68,11 +80,20 @@ public class MainActivity extends AppCompatActivity {
                 random1 = new Random().nextInt(5); //3 random Nos for 3 wheels.
                 random2 = new Random().nextInt(5);
                 random3 = new Random().nextInt(5);
-                layoutManager1.startSmoothScroll(getSmoothScroler(random1, 1));  //Using SmoothScroll to scroll to the image
-                layoutManager2.startSmoothScroll(getSmoothScroler(random2, 2));
-                layoutManager3.startSmoothScroll(getSmoothScroler(random3, 3));
+                layoutManager1.startSmoothScroll(getSmoothScroler(random1));  //Using SmoothScroll to scroll to the image
+                layoutManager2.startSmoothScroll(getSmoothScroler(random2));
+                layoutManager3.startSmoothScroll(getSmoothScroler(random3));
 
-                Toast.makeText(MainActivity.this, getName(random1) + " " + getName(random2) + " " + getName(random3), Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        recyclerView1.smoothScrollBy(0, 150);
+                        recyclerView2.smoothScrollBy(0, 150);
+                        recyclerView3.smoothScrollBy(0, 150);
+                    }
+                }, 1800);
+
+                Toast.makeText(MainActivity.this, getName(random1) + " " + getName(random2) + " " + getName(random3), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -85,6 +106,15 @@ public class MainActivity extends AppCompatActivity {
                 layoutManager1.scrollToPosition(0);
                 layoutManager2.scrollToPosition(0);
                 layoutManager3.scrollToPosition(0);
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        recyclerView1.smoothScrollBy(0, 150);
+                        recyclerView2.smoothScrollBy(0, 150);
+                        recyclerView3.smoothScrollBy(0, 150);
+                    }
+                }, 200);
             }
         });
 
@@ -94,9 +124,9 @@ public class MainActivity extends AppCompatActivity {
 
         switch (position) {
             case 0:
-                return "Einstein";
-            case 1:
                 return "Edison";
+            case 1:
+                return "Einstein";
             case 2:
                 return "Hawking";
             case 3:
@@ -108,20 +138,7 @@ public class MainActivity extends AppCompatActivity {
         return null;
     }
 
-    public RecyclerView.SmoothScroller getSmoothScroler(int position, int recyclerPosition) {
-        int SCROLL_OFFSET = 0;
-
-        switch (recyclerPosition) {   //SCROLL_OFFSET is to scroll down
-            case 1:
-                SCROLL_OFFSET = 80;
-                break;
-            case 2:
-                SCROLL_OFFSET = 120;
-                break;
-            case 3:
-                SCROLL_OFFSET = 160;
-                break;
-        }
+    public RecyclerView.SmoothScroller getSmoothScroler(int position) {
 
         RecyclerView.SmoothScroller smoothScroller = new LinearSmoothScroller(this) {
             @Override
@@ -129,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 return LinearSmoothScroller.SNAP_TO_START;
             }
         };
-        smoothScroller.setTargetPosition((position + SCROLL_OFFSET));
+        smoothScroller.setTargetPosition((position + SCROLL_OFFSET - 1));
 
         return smoothScroller;
     }

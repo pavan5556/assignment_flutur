@@ -7,15 +7,13 @@
     tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:orientation="horizontal"
-        android:background="#607d8b"
-        app:layout_constraintBottom_toTopOf="@+id/play_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -23,21 +21,21 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview1"
             android:layout_width="0dp"
-            android:layout_height="120dp"
+            android:layout_height="300dp"
             android:layout_weight="1"
             android:padding="4dp" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview2"
             android:layout_width="0dp"
-            android:layout_height="120dp"
+            android:layout_height="300dp"
             android:layout_weight="1"
             android:padding="4dp" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerview3"
             android:layout_width="0dp"
-            android:layout_height="120dp"
+            android:layout_height="300dp"
             android:layout_weight="1"
             android:padding="4dp" />
     </LinearLayout>
@@ -46,15 +44,14 @@
         android:id="@+id/play_button"
         style="@style/Base.Widget.AppCompat.Button.Colored"
         android:layout_width="120dp"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
         android:text="@string/play"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <Button
         android:id="@+id/reset_button"
@@ -69,4 +66,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/play_button" />
 
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:src="@drawable/gradient_top"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:src="@drawable/gradient_bottom"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout" />
 </android.support.constraint.ConstraintLayout>
